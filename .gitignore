@@ -218,5 +218,7 @@ __marimo__/
 .streamlit/secrets.toml
 .idea/
 .venv/
-*.pyc
-.env
+allure-results
+.env.*
+/notifications/
+/allure-report/
