@@ -2,7 +2,9 @@ import os
 
 import allure
 import requests
+from config import settings
 from allure_commons.types import AttachmentType
+
 
 
 def add_screenshot(browser):
@@ -35,15 +37,11 @@ def add_xml(browser):
 
 
 def add_bstack_video(session_id):
-    bs_login = os.getenv("BS_LOGIN")
-    bs_key = os.getenv("BS_KEY")
-    bs_url_api = os.getenv("BS_URL_API")
-
     bstack_session = requests.get(
-        f'{bs_url_api}{session_id}.json',
-        auth=(bs_login, bs_key),
+        f'{settings.bs_url_api}{session_id}.json',
+        auth=(settings.bs_user, settings.bs_key),
     ).json()
-    print(bstack_session)
+
     video_url = bstack_session['automation_session']['video_url']
 
     allure.attach(
