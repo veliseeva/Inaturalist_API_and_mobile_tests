@@ -42,7 +42,10 @@ def get_mobile_options(context: Literal["bstack", "emulator", "real"]) -> UiAuto
     options = UiAutomator2Options()
 
     options.set_capability("appium:autoGrantPermissions", True)
-    options.set_capability("appium:newCommandTimeout", 300)
+    options.set_capability("appium:newCommandTimeout", 60)
+    options.set_capability("appium:disableWindowAnimation", True)
+    options.set_capability("appium:ignoreUnimportantViews", True)
+    options.set_capability("appium:waitForIdleTimeout", 0)
     options.set_capability("appium:appWaitActivity", "*")
     options.set_capability("appium:noReset", False)
 
