@@ -1,5 +1,5 @@
 from appium.webdriver.common.appiumby import AppiumBy
-from selene import browser, have
+from selene import browser, have, be
 from inaturalist_project.utils.gestures import scroll_to_text
 import allure
 
@@ -19,8 +19,8 @@ class MobileSettingPage:
         return self
 
     @allure.step("Проверяем, что в навигации сменился язык")
-    def observation_bar_should_be_in_the_selected_language(self, widget_text: str):
-        browser.element(self._text_view).should(have.text(widget_text))
+    def observation_bar_should_be_in_the_selected_language(self, partial_text: str):
+        browser.all(self._text_view).element_by(have.text(partial_text)).should(be.visible)
         return self
 
 

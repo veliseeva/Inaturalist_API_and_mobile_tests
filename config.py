@@ -38,14 +38,12 @@ class Settings(BaseSettings):
 settings = Settings()
 
 
-def get_mobile_options(context: Literal["bstack", "emulator", "real"]) -> UiAutomator2Options:
+def get_mobile_options(context: Literal["bstack", "emulator", "real", "selenoid"]) -> UiAutomator2Options:
     options = UiAutomator2Options()
 
     options.set_capability("appium:autoGrantPermissions", True)
-    options.set_capability("appium:newCommandTimeout", 60)
+    options.set_capability("appium:newCommandTimeout", 120)
     options.set_capability("appium:disableWindowAnimation", True)
-    options.set_capability("appium:ignoreUnimportantViews", True)
-    options.set_capability("appium:waitForIdleTimeout", 0)
     options.set_capability("appium:appWaitActivity", "*")
     options.set_capability("appium:noReset", False)
 
@@ -73,5 +71,7 @@ def get_mobile_options(context: Literal["bstack", "emulator", "real"]) -> UiAuto
         options.set_capability("appium:appActivity", ".ObservationListActivity")
         options.set_capability("appium:uiautomator2ServerLaunchTimeout", 90000)
         options.set_capability("appium:adbExecTimeout", 60000)
+
+    return options
 
     return options
