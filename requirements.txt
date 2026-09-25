@@ -6,4 +6,5 @@ requests
 jsonschema
 appium-python-client
 selenium
+pydantic-settings
 
