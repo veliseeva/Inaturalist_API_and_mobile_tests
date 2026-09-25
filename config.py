@@ -73,5 +73,3 @@ def get_mobile_options(context: Literal["bstack", "emulator", "real", "selenoid"
         options.set_capability("appium:adbExecTimeout", 60000)
 
     return options
-
-    return options
