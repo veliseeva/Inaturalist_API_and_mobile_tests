@@ -44,6 +44,7 @@ def get_mobile_options(context: Literal["bstack", "emulator", "real", "selenoid"
     options.set_capability("appium:autoGrantPermissions", True)
     options.set_capability("appium:newCommandTimeout", 120)
     options.set_capability("appium:disableWindowAnimation", True)
+    options.set_capability("appium:waitForIdleTimeout", 5000)
     options.set_capability("appium:appWaitActivity", "*")
     options.set_capability("appium:noReset", False)
 

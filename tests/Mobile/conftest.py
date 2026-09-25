@@ -34,8 +34,6 @@ def mobile_management(context):
 
         browser.config.driver = webdriver.Remote(remote_url, options=options)
         browser.config.timeout = settings.timeout
-        browser.config.poll_during_waits = 1.0
-        browser.driver.update_settings({"waitForIdleTimeout": 2000})
         session_id = browser.driver.session_id
 
     skip_tutorial_safely()
