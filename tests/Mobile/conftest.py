@@ -33,7 +33,7 @@ def mobile_management(context):
         remote_url = settings.bstack_url if context == "bstack" else settings.local_url
 
         browser.config.driver = webdriver.Remote(remote_url, options=options)
-        browser.config.timeout = settings.timeout
+        # browser.config.timeout = settings.timeout
         session_id = browser.driver.session_id
 
     skip_tutorial_safely()
