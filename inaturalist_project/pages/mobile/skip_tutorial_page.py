@@ -9,34 +9,47 @@ SKIP_BUTTON_LOCATOR = (AppiumBy.ID, 'org.inaturalist.android:id/skip')
 
 
 @allure.step("Пропуск онбординга (туториала)")
+@allure.step("Пропуск онбординга (туториала)")
 def skip_tutorial_safely():
-    tutorial_trigger = browser.element(SWIPE_TEXT_LOCATOR)
+    time.sleep(3.0)
 
-    if not tutorial_trigger.with_(timeout=8.0).wait_until(be.visible):
-        allure.attach("Skipped", name="Onboarding Status", attachment_type=allure.attachment_type.TEXT)
+    tutorial_trigger = browser.element(SWIPE_TEXT_LOCATOR)
+    if not tutorial_trigger.with_(timeout=10.0).wait_until(be.visible):
+        allure.attach(
+            "Passed",
+            name="Onboarding Status",
+            attachment_type=allure.attachment_type.TEXT
+        )
         return
 
     try:
         with allure.step("Инициализация туториала"):
             tutorial_trigger.click()
+            time.sleep(1.5)
 
-        with allure.step("Динамический поиск кнопки Skip"):
+        with allure.step("Листаем экраны"):
+            for _ in range(4):
+                swipe_left()
+                time.sleep(1.2)
+
+        with allure.step("Закрываем онбординг"):
             skip_btn = browser.element(SKIP_BUTTON_LOCATOR)
 
-            for _ in range(5):
-                if skip_btn.with_(timeout=1.0).wait_until(be.visible):
-                    break
-                swipe_left()
-                time.sleep(0.4)
-
-        with allure.step("Подтверждение пропуска"):
             for step in range(1, 4):
-                if skip_btn.with_(timeout=2.0).wait_until(be.visible):
-                    allure.attach(f"Click Skip #{step}", name="Action", attachment_type=allure.attachment_type.TEXT)
-                    browser.driver.find_element(*SKIP_BUTTON_LOCATOR).click()
-                    time.sleep(1.0)
-                else:
+                if not skip_btn.with_(timeout=4.0).wait_until(be.visible):
                     break
+
+                allure.attach(
+                    f"Skip #{step}",
+                    name="Onboarding Step",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+                skip_btn.click()
+                time.sleep(1.5)
 
     except Exception as e:
-        allure.attach(str(e), name="Tutorial Error", attachment_type=allure.attachment_type.TEXT)
+        allure.attach(
+            str(e),
+            name="Error",
+            attachment_type=allure.attachment_type.TEXT
+        )
